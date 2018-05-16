@@ -1,20 +1,18 @@
 <log-header></log-header>
 <div class="container-fluid">
-  <div class="row flex-xl-nowrap">
+  <!-- <div class="row flex-xl-nowrap">
     <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
       <nav class="collapse bd-links" id="bd-docs-nav">
         <div class="bd-toc-item">
-          <a class="bd-toc-link" href="/docs/4.0/getting-started/introduction/">
+          <a class="bd-toc-link" routerLink="/statistics">
             ログ分析
           </a>
         </div>
       </nav>
     </div>
-  </div>
-  <!-- <label class="btn btn-primary" for="btnFile">上传文件</label>
-  <input multiple id="btnFile" type="file" class="fileUpload" (change)="logFileChnage($event.target.files)">
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-      aria-valuemax="100"></div>
   </div> -->
+  <main class="col-12 col-md-9 col-xl-6 py-md-3 pl-md-5 bd-content" role="main">
+    <h1 class="bd-title" id="content">Overview</h1>
+    <router-outlet></router-outlet>
+  </main>
 </div>

@@ -5,22 +5,22 @@
 // Load docs components
 @import "variables";
 @import "nav";
-// @import "masthead";
-// @import "ads";
-// @import "content";
-// @import "skiplink";
+@import "masthead";
+@import "ads";
+@import "content";
+@import "skiplink";
 @import "sidebar";
-// @import "footer";
-// @import "component-examples";
+@import "footer";
+@import "component-examples";
 // @import "buttons";
 // @import "callouts";
-// @import "examples";
-// @import "browser-bugs";
-// @import "brand";
-// @import "colors";
-// @import "clipboard-js";
+@import "examples";
+@import "browser-bugs";
+@import "brand";
+@import "colors";
+@import "clipboard-js";
 
-// // Load docs dependencies
-// @import "syntax";
-// @import "anchor";
-// @import "algolia";
+// Load docs dependencies
+@import "syntax";
+@import "anchor";
+@import "algolia";

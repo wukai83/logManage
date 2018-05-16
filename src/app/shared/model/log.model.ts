@@ -21,3 +21,9 @@ export class GetLoginErrorInfoModel extends BaseModel {
     ip: string;
     traceId: string;
 }
+
+export class ResultInfoModel extends BaseModel {
+    time: string;
+    ip: string;
+    userId: string;
+}

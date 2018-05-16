@@ -6,12 +6,19 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MainModule } from './main/main.module';
+// import { MainModule } from './main/main.module';
+// import { StatisticsModule } from './statistics/statistics.module';
+import { MainComponent } from './main/main.component';
+import { HeaderComponent } from './shared/component/header/header.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainComponent,
+    HeaderComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +27,8 @@ import { MainModule } from './main/main.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MainModule
+    // MainModule,
+    // StatisticsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
