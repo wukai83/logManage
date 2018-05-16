@@ -11,9 +11,5 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    const test1 = CommonUtils.padLeft('12345', 10, 'x');
-    const test2 = CommonUtils.padRight('12345', 10, 'x');
-    console.log(test1);
-    console.log(test2);
   }
 }
