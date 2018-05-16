@@ -1,0 +1,26 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// Load docs components
+@import "variables";
+@import "nav";
+// @import "masthead";
+// @import "ads";
+// @import "content";
+// @import "skiplink";
+@import "sidebar";
+// @import "footer";
+// @import "component-examples";
+// @import "buttons";
+// @import "callouts";
+// @import "examples";
+// @import "browser-bugs";
+// @import "brand";
+// @import "colors";
+// @import "clipboard-js";
+
+// // Load docs dependencies
+// @import "syntax";
+// @import "anchor";
+// @import "algolia";

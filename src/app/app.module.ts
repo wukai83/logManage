@@ -5,8 +5,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { MainModule } from '../main/main.module';
 import { AppRoutingModule } from './app-routing.module';
+import { MainModule } from './main/main.module';
 
 
 @NgModule({
