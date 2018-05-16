@@ -11,23 +11,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './shared/component/header/header.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { MainModule } from './main/main.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
-    HeaderComponent,
-    StatisticsComponent
+    // MainComponent,
+    // HeaderComponent,
+    // StatisticsComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    // MainModule,
+    // ReactiveFormsModule,
+    // FormsModule,
+    MainModule,
     // StatisticsModule
   ],
   providers: [],

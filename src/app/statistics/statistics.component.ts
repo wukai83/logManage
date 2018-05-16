@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { ElementDef } from '@angular/core/src/view';
 import { BaseComponent } from '../shared/component/base.component';
 import * as FileSaver from 'file-saver';
+import { CommonUtils } from '../shared/core/common.utils';
 
 @Component({
   selector: 'log-statistics',
@@ -56,7 +57,7 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
         return 0;
       }
     }).forEach(item => {
-      this.outputTxt += `${item.time}\t\t\t\t\t\t${item.ip}\t\t\t\t\t\t${item.userId}\r\n`;
+      this.outputTxt += `${item.time}\t\t\t${CommonUtils.padRight(item.ip, 15)}\t\t\t${item.userId}\r\n`;
     });
 
     if (this.outputTxt) {
