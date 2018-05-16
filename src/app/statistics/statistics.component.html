@@ -1,7 +1,16 @@
 <label class="btn btn-primary" for="btnFile">上传文件</label>
+<label class="btn btn-primary" (click)="beginHandle()">开始处理</label>
 <label class="btn btn-primary" (click)="downloadFile()">下载文件</label>
+<label class="btn btn-primary" (click)="clearFlie()">清除</label>
 <input multiple id="btnFile" type="file" class="hide" (change)="logFileChnage($event.target.files)">
-<div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-    aria-valuemax="100"></div>
+<div class="row" *ngFor="let file of files; let i = index">
+  <div class="col">
+    {{file.name}}
+  </div>
+  <div class="col">
+    <div class="progress">
+      <div id="progressbar{{i}}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+        aria-valuemax="100"></div>
+    </div>
+  </div>
 </div>

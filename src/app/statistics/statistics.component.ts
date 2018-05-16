@@ -11,63 +11,89 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent extends BaseComponent implements OnInit {
-  // ローディング値
-  progressValue = 0;
   progressText: string;
-  progressBar: Element;
+  progressBars: Element[] = [];
   outputTxt: string;
-  fileName: string;
+  files: FileList;
+  btnFile: Element;
+
+  pliList: PostLoginInfoModel[] = [];
+  luaiList: LoadUserApiInfoModel[] = [];
+  gleiList: GetLoginErrorInfoModel[] = [];
+  riList: ResultInfoModel[] = [];
 
   constructor() {
     super();
   }
 
   ngOnInit() {
-    this.progressBar = document.querySelector('[role=progressbar]');
-    this.progressBar.setAttribute('style', this.getProgressWidth(0));
-    this.outputTxt = '';
+    this.clearFlie();
   }
 
-  // tslint:disable-next-line:member-ordering
-  pliList: PostLoginInfoModel[] = [];
-  // tslint:disable-next-line:member-ordering
-  luaiList: LoadUserApiInfoModel[] = [];
-  // tslint:disable-next-line:member-ordering
-  gleiList: GetLoginErrorInfoModel[] = [];
-  // tslint:disable-next-line:member-ordering
-  riList: ResultInfoModel[] = [];
-
   logFileChnage(fileList: FileList) {
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-      this.handleReader(file);
+    this.files = fileList;
+  }
+
+  beginHandle() {
+    for (let i = 0; i < this.files.length; i++) {
+      const file = this.files[i];
+      const bar = document.querySelector(`[id=progressbar${i}]`);
+      bar.setAttribute('style', this.getProgressWidth(0));
+      this.progressBars.push(bar);
+      this.handleReader(file, i);
     }
   }
 
   downloadFile() {
+    this.riList.sort((a, b) => {
+      const atime = moment(a.time);
+      const btime = moment(b.time);
+      if (atime.isBefore(btime)) {
+        return -1;
+      } else if (atime.isAfter(btime)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }).forEach(item => {
+      this.outputTxt += `${item.time}\t\t\t\t\t\t${item.ip}\t\t\t\t\t\t${item.userId}\r\n`;
+    });
+
     if (this.outputTxt) {
       const blob = new Blob([this.outputTxt], { type: 'text/plain;charset=utf-8' });
-      FileSaver.saveAs(blob, `${this.fileName}.txt`);
+      FileSaver.saveAs(blob, `users_error.txt`);
     }
   }
 
-  private handleReader(file: File) {
+  clearFlie() {
+    this.files = null;
+    this.outputTxt = '';
+    this.pliList = [];
+    this.luaiList = [];
+    this.gleiList = [];
+    this.riList = [];
+
+    this.btnFile = document.querySelector('#btnFile');
+    this.btnFile['value'] = '';
+  }
+
+  private handleReader(file: File, idx: number) {
     const reader = new FileReader();
     // アップロードファイルトータルサイズ
     const total = file.size;
     // ロードされたデータ
     let loaded = 0;
-    this.fileName = file.name;
+    // this.fileName = file.name;
 
     reader.readAsText(file);
-    reader.onload = (event) => {
+    reader.onloadend = (event) => {
       this.handleLogFlie(reader.result, file.name);
     };
     reader.onerror = (error) => console.dir(error);
     reader.onprogress = (e) => {
       loaded = e.loaded;
-      this.progressValue = Math.round((loaded / total) * 100);
-      this.progressBar.setAttribute('style', this.getProgressWidth(this.progressValue));
+      const value = Math.round((loaded / total) * 100);
+      this.progressBars[idx].setAttribute('style', this.getProgressWidth(value));
     };
   }
 
@@ -153,21 +179,7 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
         }
       }
     }
-    this.riList.sort((a, b) => {
-      const atime = moment(a.time);
-      const btime = moment(b.time);
-      if (atime.isBefore(btime)) {
-        return -1;
-      } else if (atime.isAfter(btime)) {
-        return 1;
-      } else {
-        return 0;
-      }
-    })
-      .forEach(item => {
-        this.outputTxt += `${item.time}\t\t\t\t\t\t${item.ip}\t\t\t\t\t\t${item.userId}\r\n`;
-      });
-    console.log(this.outputTxt);
+    // console.log(this.outputTxt);
     console.log(this.riList.length);
   }
 
