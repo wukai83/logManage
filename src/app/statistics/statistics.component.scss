@@ -11,3 +11,25 @@
 label[for="btnFile"] {
   margin-bottom: 0px;
 }
+
+// div.row.mt-1{
+//   > div.col:first::before {
+//     content: 'No.'counter(index);
+//   }
+//   > div.col:first {
+//     counter-increment: index;
+//   }
+// }
+
+div.row.mt-1::before {
+  content: counter(index);
+}
+div.row.mt-1 {
+  counter-increment: index;
+}
+
+// @font-face{
+//   font-family: WebFont;
+//   src: url('font/Fontin_Sans_R_45b.otf') format('opentype');
+//   font-weight: normal;
+// }

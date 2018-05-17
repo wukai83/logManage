@@ -3,14 +3,30 @@
 <input class="btn btn-primary" type="button" (click)="downloadFile()" [disabled]="isCanDownload" value="ダウンロード">
 <input class="btn btn-primary" type="button" (click)="clearFlie()" [disabled]="isCanCancel" value="クリア">
 <input multiple id="btnFile" type="file" class="hide" (change)="logFileChnage($event.target.files)">
-<div class="row mt-3" *ngFor="let file of files; let i = index">
-  <div class="col">
-    {{file.name}}
+<div class="mt-3" *ngIf="files && files.length > 0">
+  <div class="row">
+    <div class="col">
+      ファイル名
+    </div>
+    <div class="col">
+      サイズ
+    </div>
+    <div class="col">
+      ロード進捗
+    </div>
   </div>
-  <div class="col">
-    <div class="progress">
-      <div id="progressbar{{i}}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-        aria-valuemax="100"></div>
+  <div class="row mt-1" *ngFor="let file of files; let i = index">
+    <div class="col">
+      {{file.name}}
+    </div>
+    <div class="col">
+      {{file.size}}
+    </div>
+    <div class="col">
+      <div class="progress">
+        <div id="progressbar{{i}}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+          aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
     </div>
   </div>
 </div>
