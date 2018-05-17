@@ -1,9 +1,9 @@
-<label class="btn btn-primary" for="btnFile">上传文件</label>
-<label class="btn btn-primary" (click)="beginHandle()">开始处理</label>
-<label class="btn btn-primary" (click)="downloadFile()">下载文件</label>
-<label class="btn btn-primary" (click)="clearFlie()">清除</label>
+<label class="btn btn-primary" for="btnFile">アップロード</label>
+<input class="btn btn-primary" type="button" (click)="beginHandle()" [disabled]="isCanHandle" value="読込スタート">
+<input class="btn btn-primary" type="button" (click)="downloadFile()" [disabled]="isCanDownload" value="ダウンロード">
+<input class="btn btn-primary" type="button" (click)="clearFlie()" [disabled]="isCanCancel" value="クリア">
 <input multiple id="btnFile" type="file" class="hide" (change)="logFileChnage($event.target.files)">
-<div class="row" *ngFor="let file of files; let i = index">
+<div class="row mt-3" *ngFor="let file of files; let i = index">
   <div class="col">
     {{file.name}}
   </div>

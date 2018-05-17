@@ -18,6 +18,10 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
   files: FileList;
   btnFile: Element;
 
+  isCanHandle = true;
+  isCanDownload = true;
+  isCanCancel = true;
+
   pliList: PostLoginInfoModel[] = [];
   luaiList: LoadUserApiInfoModel[] = [];
   gleiList: GetLoginErrorInfoModel[] = [];
@@ -33,6 +37,8 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
 
   logFileChnage(fileList: FileList) {
     this.files = fileList;
+    this.isCanHandle = false;
+    this.isCanCancel = false;
   }
 
   beginHandle() {
@@ -181,6 +187,7 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
       }
     }
     // console.log(this.outputTxt);
+    this.isCanDownload = false;
     console.log(this.riList.length);
   }
 
