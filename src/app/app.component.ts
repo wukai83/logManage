@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigate([Const.PATH_URI.Main]);
-    // this.router.navigateByUrl(Const.PATH_URI.Main);
+    // this.router.navigate([Const.PATH_URI.Main]);
   }
 }

@@ -11,10 +11,8 @@ import { AppComponent } from './app.component';
 // ];
 
 const routes: Routes = [
-    { path: '', component: AppComponent },
-    { path: 'test', loadChildren: './test/test.module#TestModule' },
+    { path: '', loadChildren: './main/main.module#MainModule' },
     { path: 'main', loadChildren: './main/main.module#MainModule' },
-    // { path: 'main', component: MainComponent, children: childRoutes },
     // { path: '**', redirectTo: '' }
 ];
 

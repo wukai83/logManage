@@ -8,7 +8,10 @@ const routes: Routes = [
         path: '',
         component: MainComponent,
         children: [
-            { path: 'statistics', loadChildren: '../statistics/statistics.module#StatisticsModule' }
+            // { path: 'top', component: MainComponent },
+            { path: 'statistics', loadChildren: '../statistics/statistics.module#StatisticsModule' },
+            { path: 'test', loadChildren: '../test/test.module#TestModule' },
+            { path: '**', redirectTo: 'statistics' }
         ]
     },
 
