@@ -31,7 +31,7 @@ export class TestComponent implements OnInit {
     // ロードされたデータ
     let loaded = 0;
     let start = 0;
-    // let records: string[] = [];
+    let records: string[] = [];
 
     reader.onloadend = (event) => {
       const lines: string[] = reader.result.match(/[^\r\n]+/g);
@@ -40,13 +40,13 @@ export class TestComponent implements OnInit {
       if (start < total) {
         const end = reader.result[reader.result.length - 1] === '\n' ? '' : lines.pop();
         start -= new Blob([end]).size;
-        // records = records.concat(lines);
+        records = records.concat(lines);
         console.log(`${file.name}\t\t\t${Math.round(start / total * 100)}`);
         // this.linecount += lines.length;
         this.readBlob(reader, file, start);
       } else {
         console.log(`${file.name}\t\t\t${Math.round(start / total * 100)}`);
-        // records = records.concat(lines);
+        records = records.concat(lines);
         // console.dir(records);
       }
     };

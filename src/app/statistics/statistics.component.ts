@@ -17,6 +17,7 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
   outputTxt: string;
   files: FileList;
   btnFile: Element;
+  step = 1024 * 1024 * 10;
 
   isCanHandle = true;
   isCanDownload = true;
@@ -63,7 +64,7 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
         return 0;
       }
     }).forEach(item => {
-      this.outputTxt += `${item.time}\t\t\t${CommonUtils.padRight(item.ip, 15)}\t\t\t${item.userId}\r\n`;
+      this.outputTxt += `${item.time}\t\t\t${item.ip.padEnd(15, ' ')}\t\t\t${item.userId}\r\n`;
     });
 
     if (this.outputTxt) {
@@ -89,24 +90,49 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
     // アップロードファイルトータルサイズ
     const total = file.size;
     // ロードされたデータ
+    // let loaded = 0;
+    let start = 0;
     let loaded = 0;
-    // this.fileName = file.name;
+    this.step = total;
 
-    reader.readAsText(file);
+    // reader.readAsText(file);
+    this.readBlob(reader, file, start);
     reader.onloadend = (event) => {
-      this.handleLogFlie(reader.result, file.name);
+      const lines: string[] = reader.result.match(/[^\r\n]+/g);
+      const temp = start;
+      start += new Blob([reader.result]).size;
+      if (start < total) {
+        const end = reader.result[reader.result.length - 1] === '\n' ? '' : lines.pop();
+        start -= new Blob([end]).size;
+        this.handleLogFlie(lines, file.name);
+
+        // const value = Math.round((start / total) * 100);
+        // this.progressBars[idx].setAttribute('style', this.getProgressWidth(value));
+
+        // console.log(`${file.name}\t\t\t${Math.round(start / total * 100)}`);
+        this.readBlob(reader, file, start);
+      } else {
+        // const value = Math.round((start / total) * 100);
+        // this.progressBars[idx].setAttribute('style', this.getProgressWidth(value));
+
+        // console.log(`${file.name}\t\t\t${Math.round(start / total * 100)}`);
+        this.handleLogFlie(lines, file.name);
+        console.log(lines.length);
+      }
+
+      // this.handleLogFlie(reader.result, file.name);
     };
     reader.onerror = (error) => console.dir(error);
     reader.onprogress = (e) => {
-      loaded = e.loaded;
+      loaded += e.loaded;
       const value = Math.round((loaded / total) * 100);
       this.progressBars[idx].setAttribute('style', this.getProgressWidth(value));
     };
   }
 
-  private handleLogFlie(result: any, fileName: string) {
-    console.log(fileName);
-    const lines: Array<string> = result.match(/[^\r\n]+/g);
+  private handleLogFlie(lines: Array<string>, fileName: string) {
+    // console.log(fileName);
+    // const lines: Array<string> = result.match(/[^\r\n]+/g);
     for (const line of lines) {
       const items = line.split(' ');
       if (items.length > 0) {
@@ -188,10 +214,15 @@ export class StatisticsComponent extends BaseComponent implements OnInit {
     }
     // console.log(this.outputTxt);
     this.isCanDownload = false;
-    console.log(this.riList.length);
+    // console.log(this.riList.length);
   }
 
   private getProgressWidth(val: number) {
     return `width:${val}%`;
+  }
+
+  private readBlob(reader: FileReader, file: File, start: number) {
+    const blob = file.slice(start, start + this.step, 'UTF-8');
+    reader.readAsText(blob);
   }
 }
